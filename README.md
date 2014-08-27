@@ -2,11 +2,12 @@ Gulp based web/hybrid app skeleton.
 
 * LiveScript (using lsc-gulp and gulp-livescript)
 * Dev server (using connect)
-* LiveReload support
+* LiveReload
+* Browserify
 * Desktop notifications
 * Clean gulpfile structure
 
-While the example Jade and Stylus + Nib for pre-built (compiled) templates and stylesheets, these choices can be easily changed by updating gulp/build.ls
+While the example Jade and Stylus + Nib for pre-built (compiled) templates and stylesheets, these choices can be easily changed by updating gulp/build.ls.
 
 ### Setup
 
