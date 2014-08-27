@@ -1,0 +1,25 @@
+@import "nib"
+
+body
+  background-color #fff4ed
+  text-align center
+
+h1
+  margin-top 150px
+
+
+@keyframes fadeInDown
+  from
+    opacity 0
+    transform translateY(-30px)
+  to
+    opacity 1
+    transform translateY(0)
+
+
+.fade-in
+  opacity 0
+  animation fadeInDown ease-in-out 1
+  animation-fill-mode forwards
+  animation-duration 0.5s
+  animation-delay 1s
