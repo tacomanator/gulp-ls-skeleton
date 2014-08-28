@@ -1,8 +1,10 @@
 require! {
   gulp
+  areas: \./config .areas
 }
 
 gulp.task \watch ->
-  gulp.watch \source/*.ls,   [\build-scripts]
-  gulp.watch \source/*.jade, [\build-html]
-  gulp.watch \source/*.styl, [\build-styles]
+  for area in areas
+    gulp.watch "source/#{area}/**/*.ls",   ["build-#{area}-scripts"]
+    gulp.watch "source/#{area}/**/*.jade", ["build-#{area}-html"]
+    gulp.watch "source/#{area}/**/*.styl", ["build-#{area}-styles"]

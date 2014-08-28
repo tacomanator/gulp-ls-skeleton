@@ -1,0 +1,1 @@
+module.exports = "You have arrived :)"

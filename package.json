@@ -15,7 +15,9 @@
     "browserify": "^5.10.1",
     "reactify": "^0.14.0",
     "vinyl-source-stream": "^0.1.1",
-    "liveify": "^0.4.0"
+    "liveify": "^0.4.0",
+    "glob": "^4.0.5",
+    "prelude-ls": "^1.1.1"
   },
   "browserify": {
     "transform": [

@@ -8,41 +8,45 @@ require! {
   nib:        \nib # CSS3 extensions for Stylus
   notify:     \gulp-notify # OS Notifications for Gulp
   connect:    \gulp-connect # For webserver (with LiveReload)
+  prelude:    \prelude-ls
+  areas:      \./config .areas
 }
 
 
-build-steps =
-  \build-scripts
-  \build-html
-  \build-styles
+{map,each} = prelude
 
 
-gulp.task \build-scripts, ->
+tasks = []
 
-  browserify do
-    entries: [\./source/main.ls]
-    extensions: [\.ls]
-  .transform \liveify
-  .bundle()
-  .pipe source(\main.js)
-  .pipe gulp.dest(\build/js)
-  .pipe connect.reload()
-  .pipe notify("Completed build-scripts")
+areas |> each (area) ->
 
-gulp.task \build-html, ->
-  gulp.src "source/*.jade"
-    .pipe jade()
-    .pipe gulp.dest("build/")
+  tasks ++= <[ scripts html styles ]>
+    |> map ("build-#{area}-" +)
+
+  gulp.task "build-#{area}-scripts" [\clean] ->
+    browserify do
+      entries: ["./source/#{area}/index.ls"]
+      extensions: [\.ls]
+    .transform \liveify
+    .bundle()
+    .pipe source(\index.js)
+    .pipe gulp.dest("build/#{area}/")
     .pipe connect.reload()
-    .pipe notify("Completed build-html")
+    .pipe notify("Completed build-scripts for #{area}")
 
-gulp.task \build-styles, ->
+  gulp.task "build-#{area}-html" [\clean] ->
+    gulp.src "source/#{area}/index.jade"
+      .pipe jade()
+      .pipe gulp.dest("build/#{area}/")
+      .pipe connect.reload()
+      .pipe notify("Completed build-html for #{area}")
 
-  gulp.src "source/*.styl"
-    .pipe stylus(use: [nib()])
-    .pipe gulp.dest(\build/css/)
-    .pipe connect.reload()
-    .pipe notify("Completed build-styles")
+  gulp.task "build-#{area}-styles" [\clean] ->
+    gulp.src "source/#{area}/index.styl"
+      .pipe stylus(use: [nib()])
+      .pipe gulp.dest("build/#{area}/")
+      .pipe connect.reload()
+      .pipe notify("Completed build-styles for #{area}")
 
 
-gulp.task \build, build-steps
+gulp.task \build, tasks

@@ -36,3 +36,9 @@ Build only:
 Clean only:
 
     $ lsc-gulp clean
+
+### Structure
+
+#### Areas
+
+Occassionally you may want to break SPAs (single page applications) into parts (to improve load performance of a large SPA, for example). Each area is like a separate app, but may share some things with other areas. The convention followed by this skeleton is to create a folder under source with an entry point (index.jade file). Presently the builder also expects an index.ls and index.styl to go along with it. Areas will be detected and built automatically. The root of source/ also acts like an area, if an index.jade is present.
